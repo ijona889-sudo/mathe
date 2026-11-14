@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Mathegenerator</string>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#241C36</item>
+        <item name="android:navigationBarColor">#241C36</item>
+        <item name="android:windowBackground">#241C36</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

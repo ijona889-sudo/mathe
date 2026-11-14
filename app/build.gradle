@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.application'
+}
+
+def signingValues = [
+    System.getenv('RECHENZAUBER_KEYSTORE'),
+    System.getenv('RECHENZAUBER_KEYSTORE_PASSWORD'),
+    System.getenv('RECHENZAUBER_KEY_ALIAS'),
+    System.getenv('RECHENZAUBER_KEY_PASSWORD')
+]
+def hasReleaseKey = signingValues.every { it }
+
+android {
+    namespace 'de.rechenzauber.mathegenerator'
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+
+    defaultConfig {
+        applicationId 'de.rechenzauber.mathegenerator'
+        minSdk 26
+        targetSdk 36
+        versionCode 144
+        versionName '0.1.44'
+    }
+
+    signingConfigs {
+        if (hasReleaseKey) {
+            release {
+                storeFile file(signingValues[0])
+                storePassword signingValues[1]
+                keyAlias signingValues[2]
+                keyPassword signingValues[3]
+                storeType 'PKCS12'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (hasReleaseKey) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
